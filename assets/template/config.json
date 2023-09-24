@@ -1,0 +1,12 @@
+{
+  "factoriesConfig": {
+    "modelFactory": {
+      "INetService": {"implementation": "MockNetService"}
+    }
+  },
+  "appConfig": {
+    "slotConfig": {
+      "symbolsVerticalGap": 50
+    }
+  }
+}
