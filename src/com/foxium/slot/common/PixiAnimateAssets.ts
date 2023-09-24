@@ -7,8 +7,8 @@ import {AnimateAsset} from "@pixi/animate";
 
 const animateAssets = (): AnimateAsset =>
 {
-    if (AssetsQuality.current === AssetsQuality.HIGH) return animateAssetHigh;
-    if (AssetsQuality.current === AssetsQuality.MEDIUM) return animateAssetMedium;
+    if (AssetsQuality.current == AssetsQuality.HIGH) return animateAssetHigh;
+    if (AssetsQuality.current == AssetsQuality.MEDIUM) return animateAssetMedium;
 
     return animateAssetLow;
 };

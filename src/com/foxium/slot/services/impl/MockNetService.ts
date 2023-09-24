@@ -65,7 +65,7 @@ class MockNetService extends AbstractHierarchyObject implements INetService
         const currentState = this.state["machine-state"][this.currentResponseIndex];
 
         this.currentResponseIndex++;
-        if (this.currentResponseIndex === this.state["machine-state"].length) this.currentResponseIndex = 0;
+        if (this.currentResponseIndex == this.state["machine-state"].length) this.currentResponseIndex = 0;
 
         this._result = {winAmount: currentState.win, stopPositions: this.getStopPositions(currentState.reels)};
 
@@ -95,8 +95,20 @@ class MockNetService extends AbstractHierarchyObject implements INetService
             configStr += configStr;
 
             const responseStr = responseSymbolIdList.join("");
+            const position = configStr.indexOf(responseStr);
 
-            result.push(configStr.indexOf(responseStr));
+            if (position > -1)
+            {
+                result.push(position);
+            } else
+            {
+                const errorText = "Combination '" + singleReel.join(", ") + "' is missing on " + index + " reel!\n" +
+                    "Reel: " + this.toStringList(configSymbolIdIdList).join(", ");
+
+                alert(errorText);
+                throw new Error(errorText);
+            }
+
         });
 
         return result;
@@ -107,6 +119,27 @@ class MockNetService extends AbstractHierarchyObject implements INetService
         const idList: number[] = [];
 
         singleReel.forEach(value => idList.push(this.config.slotConfig.symbolNameToIdMapping.get(value)!));
+
+        return idList;
+    }
+
+    private toStringList(singleReel: readonly number[]): string[]
+    {
+        const idList: string[] = [];
+
+        const symNameToIdMap = this.config.slotConfig.symbolNameToIdMapping;
+
+        singleReel.forEach(value =>
+        {
+            for (const key of symNameToIdMap.keys())
+            {
+                if (symNameToIdMap.get(key) == value)
+                {
+                    idList.push(key);
+                    break;
+                }
+            }
+        });
 
         return idList;
     }

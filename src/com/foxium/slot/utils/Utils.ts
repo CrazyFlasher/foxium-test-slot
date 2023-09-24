@@ -9,7 +9,7 @@ export function map(from: object, to: object, recursive = true): void
 
         if (fromValue)
         {
-            if (recursive && typeof fromValue === "object")
+            if (recursive && typeof fromValue == "object")
             {
                 if (toValue)
                 {

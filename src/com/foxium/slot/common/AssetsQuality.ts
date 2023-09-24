@@ -41,9 +41,9 @@ export class AssetsQuality extends Enum
 
     private static fromString(value: string): AssetsQuality
     {
-        if (value === AssetsQuality.HIGH.name) return AssetsQuality.HIGH;
-        if (value === AssetsQuality.MEDIUM.name) return AssetsQuality.MEDIUM;
-        if (value === AssetsQuality.LOW.name) return AssetsQuality.LOW;
+        if (value == AssetsQuality.HIGH.name) return AssetsQuality.HIGH;
+        if (value == AssetsQuality.MEDIUM.name) return AssetsQuality.MEDIUM;
+        if (value == AssetsQuality.LOW.name) return AssetsQuality.LOW;
 
         console.warn("Unknown quality '" + value + "'. Set 'high', 'medium' or 'low'");
 

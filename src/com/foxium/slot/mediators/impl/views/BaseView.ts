@@ -15,7 +15,7 @@ export class BaseView extends MessageDispatcher
 
     public getMovieClip(nameOrIndex: string | number): MovieClip
     {
-        return (typeof nameOrIndex === "string" ? this._assets.getChildByName(nameOrIndex) :
+        return (typeof nameOrIndex == "string" ? this._assets.getChildByName(nameOrIndex) :
             this._assets.getChildAt(nameOrIndex)) as MovieClip;
     }
 

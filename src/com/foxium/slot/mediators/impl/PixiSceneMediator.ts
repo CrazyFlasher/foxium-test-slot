@@ -134,7 +134,7 @@ class PixiSceneMediator extends AbstractHierarchyObject implements ISceneMediato
 
     private screenResizerOrientationChanged(): void
     {
-        if (this.screenResizer.orientation === ScreenResizerOrientation.HORIZONTAL)
+        if (this.screenResizer.orientation == ScreenResizerOrientation.HORIZONTAL)
         {
             this.appWidth = this.assets.width;
             this.appHeight = this.assets.height;
@@ -145,7 +145,7 @@ class PixiSceneMediator extends AbstractHierarchyObject implements ISceneMediato
             this.appHeight = this.assets.height + 300;
         }
 
-        this.slotView.orientationChanged(this.screenResizer.orientation === ScreenResizerOrientation.HORIZONTAL);
+        this.slotView.orientationChanged(this.screenResizer.orientation == ScreenResizerOrientation.HORIZONTAL);
         this.screenResizer.setAppDimensions(this.appWidth, this.appHeight);
         this.updateBgPos();
         this.screenResizer.update();

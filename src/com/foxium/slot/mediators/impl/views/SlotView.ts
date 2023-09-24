@@ -53,7 +53,7 @@ export class SlotView extends BaseView
 
             this.reelViewList.push(reelView);
 
-            if (i === this.config.reels.length - 1)
+            if (i == this.config.reels.length - 1)
             {
                 reelView.addMessageListener(ReelViewMessageType.STOPPED, this.reelViewStopped.bind(this));
             }

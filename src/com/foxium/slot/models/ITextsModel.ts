@@ -110,7 +110,7 @@ class TextsModel extends AbstractHierarchyObject implements ITextsModel
     {
         for (const localeCode of this._localeCodes)
         {
-            if (localeCode === code)
+            if (localeCode == code)
             {
                 return true;
             }

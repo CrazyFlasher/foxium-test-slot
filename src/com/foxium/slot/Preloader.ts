@@ -13,9 +13,9 @@ class Preloader
 
         xhr.onload = () =>
         {
-            if (xhr.readyState === 4)
+            if (xhr.readyState == 4)
             {
-                if (xhr.status === 200)
+                if (xhr.status == 200)
                 {
                     script.text = xhr.responseText;
                     document.head.appendChild(script);
