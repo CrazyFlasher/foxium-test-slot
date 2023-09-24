@@ -1,6 +1,6 @@
 import {LogLevel} from "domwires/dist/com/domwires/logger/ILogger";
 
-export function map(from: object, to: object, recursive: boolean = true): void
+export function map(from: object, to: object, recursive = true): void
 {
     for (const propName of Object.keys(from))
     {

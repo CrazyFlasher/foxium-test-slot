@@ -85,7 +85,7 @@ class PixiSceneMediator extends AbstractHierarchyObject implements ISceneMediato
             hello: true
         });
 
-        document.body.appendChild(<HTMLCanvasElement>this.app.view);
+        document.body.appendChild(this.app.view as HTMLCanvasElement);
     }
 
     private createBgView(): void

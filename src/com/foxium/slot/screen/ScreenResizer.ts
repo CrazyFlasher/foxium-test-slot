@@ -26,7 +26,7 @@ export class ScreenResizer extends MessageDispatcher
     private _orientation!: ScreenResizerOrientation;
 
     public constructor(screen: Rectangle, source: DisplayObject, appWidth: number, appHeight: number,
-                       padding: Rectangle = new Rectangle(), updateDelayMs: number = 100)
+                       padding = new Rectangle(), updateDelayMs = 100)
     {
         super();
 

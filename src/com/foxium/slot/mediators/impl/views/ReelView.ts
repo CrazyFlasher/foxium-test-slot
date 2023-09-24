@@ -57,7 +57,6 @@ export class ReelView extends BaseView
             if (isNaN(this.symbolHeight))
             {
                 this.symbolHeight = sym.normalHeight + this.config.symbolsVerticalGap;
-                // y = this.symbolHeight * 2;
             }
 
             symAssets.y = y;

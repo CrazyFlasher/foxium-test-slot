@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-empty-interface */
+
 import {IHierarchyObject, MessageType} from "domwires";
 
 export class SceneMediatorMessageType extends MessageType
