@@ -3,9 +3,9 @@
 
 Project is created with [TypeScript](https://www.typescriptlang.org/) using main libraries:
 
-* [DomWires](https://github.com/CrazyFlasher/domwires-ts) - dependency injection framework created my CrazyFlasher (me).
-* [PixiJS](https://pixijs.com) - rendering framework.
-* [ESbuild](https://esbuild.github.io/) - bundler for browser environment.
+* [DomWires](https://github.com/CrazyFlasher/domwires-ts) - dependency injection framework.
+* [PixiJS](https://pixijs.com) - framework for visuals.
+* [ESBuild](https://esbuild.github.io/) - bundler for browser environment.
 * [Mocha](https://mochajs.org/) - test framework.
 * [ESLint](https://eslint.org/) - code linting tool.
 
@@ -38,7 +38,7 @@ App is configured in [AppConfig.ts](https://github.com/CrazyFlasher/foxium-test-
 Config values can be overridden in [config.json](https://github.com/CrazyFlasher/foxium-test-slot/blob/main/assets/template/config.json) at run-time without rebuilding the code. For example we can specify implementation of [INetService](https://github.com/CrazyFlasher/foxium-test-slot/blob/main/src/com/foxium/slot/services/INetService.ts) in config at run-time. 
 
 ### Logic
-Reels and configured in [AppConfig.ts](https://github.com/CrazyFlasher/foxium-test-slot/blob/main/src/AppConfig.ts).
+Reels are configured in [AppConfig.ts](https://github.com/CrazyFlasher/foxium-test-slot/blob/main/src/AppConfig.ts).
 When reels are spinning, user sees correct symbols order.
 After we have spin result (which currently is being picked from [results.json](https://github.com/CrazyFlasher/foxium-test-slot/blob/main/assets/template/results.json)), we find correct position of the combination on pre-configured reels.
 If current combination from [results.json]() is missing on reel - client will fall with error.
