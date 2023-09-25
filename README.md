@@ -51,3 +51,6 @@ Reels stop one after another and from left to right.
 ### Localization
 Texts are loaded from [texts.csv](https://github.com/CrazyFlasher/foxium-test-slot/blob/main/assets/template/texts.csv).
 Language can be forced by passing query param `?lang=en` (ru or est).
+
+### Release build
+http://188.166.108.195/foxium-test-slot/
