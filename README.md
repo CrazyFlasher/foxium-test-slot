@@ -10,11 +10,18 @@ Project is created with [TypeScript](https://www.typescriptlang.org/) using main
 * [ESLint](https://eslint.org/) - code linting tool.
 
 ### Build and run locally
+
 `npm install`
 
 `npm run package`
 
 `npm run run`
+
+#### Build requirements
+* npm: 10.1.10+
+* node: 18.18.0+
+
+(Might work with older versions, but I didn't test)
 
 ### Assets
 Scene assets are managed using [Adobe Animate](https://www.adobe.com/ee/products/animate.html) and integrated to project using [PixiAnimate](https://github.com/pixijs/animate) library.
