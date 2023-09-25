@@ -46,7 +46,7 @@ class TextsModel extends AbstractHierarchyObject implements ITextsModel
             const localeMap = new Map<string, string>();
 
             let i = 1;
-            while (i < rows.length - 1)
+            while (i < rows.length)
             {
                 const row: string = rows[i];
                 const r: string[] = row.split(';');

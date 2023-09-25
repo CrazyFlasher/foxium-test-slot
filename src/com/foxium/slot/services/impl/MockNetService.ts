@@ -102,7 +102,7 @@ class MockNetService extends AbstractHierarchyObject implements INetService
                 result.push(position);
             } else
             {
-                const errorText = "Combination '" + singleReel.join(", ") + "' is missing on " + index + " reel!\n" +
+                const errorText = "Combination '" + singleReel.join(", ") + "' is missing on reel " + index + "!\n" +
                     "Reel: " + this.toStringList(configSymbolIdIdList).join(", ");
 
                 alert(errorText);
