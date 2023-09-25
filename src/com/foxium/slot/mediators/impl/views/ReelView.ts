@@ -203,7 +203,7 @@ export class ReelView extends BaseView
                     {
                         this.dispatchMessage(ReelViewMessageType.STOPPED, this);
                     }
-                })
+                });
             }
         });
     }
