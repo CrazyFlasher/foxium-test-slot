@@ -68,15 +68,24 @@ export class MainContext extends AbstractContext
         this.mediatorFactory.appendMappingConfig(this.factoriesConfig.mediatorFactory!);
         this.viewFactory.appendMappingConfig(this.factoriesConfig.viewFactory!);
 
+        // mediatorFactory will inject viewFactory to instances
         this.mediatorFactory.mapToValue(ProjectTypes.IFactory, this.viewFactory);
+
+        // viewFactory will inject itself to instances
+        this.viewFactory.mapToValue(ProjectTypes.IFactoryImmutable, this.viewFactory);
 
         this.mapConfig();
     }
 
     private mapConfig(): void
     {
+        // modelFactory will inject appConfig to instances
         this.modelFactory.mapToValue(ProjectTypes.AppConfig, this.appConfig);
+
+        // mediatorFactory will inject slotConfig to instances
         this.mediatorFactory.mapToValue(ProjectTypes.SlotConfig, this.appConfig.slotConfig);
+
+        // viewFactory will inject slotConfig to instances
         this.viewFactory.mapToValue(ProjectTypes.SlotConfig, this.appConfig.slotConfig);
     }
 
@@ -91,8 +100,10 @@ export class MainContext extends AbstractContext
     {
         this.resourceService = this.modelFactory.getInstance(ProjectTypes.IResourceService);
 
+        // mediatorFactory will inject resourceService immutable interface to instances
         this.mediatorFactory.mapToValue(ProjectTypes.IResourceServiceImmutable, this.resourceService);
 
+        // Internal context factory will inject resourceService mutable interface to commands
         this.factory.mapToValue(ProjectTypes.IResourceService, this.resourceService);
 
         this.addModel(this.resourceService);
@@ -102,8 +113,10 @@ export class MainContext extends AbstractContext
     {
         this.netService = this.modelFactory.getInstance(ProjectTypes.INetService);
 
+        // mediatorFactory will inject netService immutable interface to instances
         this.mediatorFactory.mapToValue(ProjectTypes.INetServiceImmutable, this.netService);
 
+        // Internal context factory will inject netService mutable interface to commands
         this.factory.mapToValue(ProjectTypes.INetService, this.netService);
 
         this.addModel(this.netService);
@@ -113,10 +126,11 @@ export class MainContext extends AbstractContext
     {
         this.textsModel = this.modelFactory.getInstance(ProjectTypes.ITextModel);
 
+        // modelFactory will inject textsModel to instances
         this.modelFactory.mapToValue(ProjectTypes.ITextModel, this.textsModel);
-        this.mediatorFactory.mapToValue(ProjectTypes.ITextModelImmutable, this.textsModel);
+
+        // viewFactory will inject textsModel immutable interface to instances
         this.viewFactory.mapToValue(ProjectTypes.ITextModelImmutable, this.textsModel);
-        this.viewFactory.mapToValue(ProjectTypes.IFactoryImmutable, this.viewFactory);
 
         this.addModel(this.textsModel);
     }

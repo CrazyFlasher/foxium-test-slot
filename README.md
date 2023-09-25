@@ -25,7 +25,7 @@ Also run-time quality can be forced by passing query param `?quality=high` (medi
 
 ### App configuration
 App is configured in [AppConfig.ts](https://github.com/CrazyFlasher/foxium-test-slot/blob/main/src/AppConfig.ts) and [FactoriesConfig.ts](https://github.com/CrazyFlasher/foxium-test-slot/blob/main/src/FactoriesConfig.ts).
-Config values can be overridden in [config.json](https://github.com/CrazyFlasher/foxium-test-slot/blob/main/assets/template/config.json) at run-time without rebuilding the code.
+Config values can be overridden in [config.json](https://github.com/CrazyFlasher/foxium-test-slot/blob/main/assets/template/config.json) at run-time without rebuilding the code. For example we can specify implementation of [INetService](https://github.com/CrazyFlasher/foxium-test-slot/blob/main/src/com/foxium/slot/services/INetService.ts) in config at run-time. 
 
 ### Logic
 Reels and configured in [AppConfig.ts](https://github.com/CrazyFlasher/foxium-test-slot/blob/main/src/AppConfig.ts).

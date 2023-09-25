@@ -12,7 +12,6 @@ import {ISceneMediator, SceneMediatorMessageType} from "../ISceneMediator";
 import {SlotConfig} from "../../config/Config";
 import animateAssets, {animateAssetsScale} from "../../common/PixiAnimateAssets";
 
-import {ITextsModelImmutable} from "../../models/ITextsModel";
 import {AssetsQuality} from "../../common/AssetsQuality";
 
 class PixiSceneMediator extends AbstractHierarchyObject implements ISceneMediator
@@ -23,9 +22,6 @@ class PixiSceneMediator extends AbstractHierarchyObject implements ISceneMediato
     @inject(ProjectTypes.SlotConfig)
     private readonly config!: SlotConfig;
 
-    @inject(ProjectTypes.ITextModelImmutable)
-    private readonly textsModel!: ITextsModelImmutable;
-
     @inject(ProjectTypes.IResourceServiceImmutable)
     private readonly resourceService!: IResourceServiceImmutable;
 
@@ -33,7 +29,7 @@ class PixiSceneMediator extends AbstractHierarchyObject implements ISceneMediato
     private readonly netService!: INetServiceImmutable;
 
     private assets!: AnimateAsset;
-    
+
     private app!: animate.Scene;
     private gameContainer!: MovieClip;
     private screenResizer!: ScreenResizer;
@@ -48,7 +44,7 @@ class PixiSceneMediator extends AbstractHierarchyObject implements ISceneMediato
     private init(): void
     {
         this.assets = animateAssets();
-        
+
         this.appWidth = this.assets.width;
         this.appHeight = this.assets.height;
 
@@ -79,10 +75,8 @@ class PixiSceneMediator extends AbstractHierarchyObject implements ISceneMediato
             resolution: window.devicePixelRatio || 1,
             resizeTo: window,
             autoDensity: true,
-            powerPreference: "high-performance",
             antialias: false,
-            clearBeforeRender: false,
-            hello: true
+            hello: process.env.DEBUG != undefined
         });
 
         document.body.appendChild(this.app.view as HTMLCanvasElement);

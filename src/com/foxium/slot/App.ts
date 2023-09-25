@@ -30,6 +30,7 @@ export class App extends AbstractApp<{ factoriesConfig: FactoryConfig; appConfig
 
     private initApp(): void
     {
+        // merging values from loaded config to hardcoded
         map(this.appConfigJson.factoriesConfig, factoriesConfig);
         map(this.appConfigJson.appConfig, appConfig);
 
@@ -38,6 +39,7 @@ export class App extends AbstractApp<{ factoriesConfig: FactoryConfig; appConfig
         factory.mapToValue(ProjectTypes.FactoriesConfig, factoriesConfig);
         factory.mapToValue(ProjectTypes.AppConfig, appConfig);
 
+        // initializing main context
         factory.getInstance<MainContext>(MainContext);
     }
 }

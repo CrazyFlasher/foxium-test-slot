@@ -6,7 +6,9 @@
   },
   "appConfig": {
     "slotConfig": {
-      "symbolsVerticalGap": 50
+      "timings": {
+        "spinAnticipationDuration": 3.0
+      }
     }
   }
 }

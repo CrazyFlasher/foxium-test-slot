@@ -9,7 +9,9 @@ export type FactoriesConfig = {
 
 const factoriesConfig: FactoriesConfig = {
     modelFactory: new Map([
+        // Using this value from config.json as showcase
         // [ProjectTypes.INetService, {implementation: ProjectTypes.MockNetService}],
+
         [ProjectTypes.IResourceService, {implementation: ProjectTypes.PixiResourceService}],
     ]),
 
