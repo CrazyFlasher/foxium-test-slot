@@ -7,11 +7,11 @@ export function map(from: object, to: object, recursive = true): void
         const fromValue = Reflect.get(from, propName);
         const toValue = Reflect.get(to, propName);
 
-        if (fromValue)
+        if (fromValue != undefined)
         {
             if (recursive && typeof fromValue == "object")
             {
-                if (toValue)
+                if (toValue != undefined)
                 {
                     map(fromValue, toValue);
                 }

@@ -14,6 +14,7 @@ export type SlotConfig = {
     readonly symbolsVerticalGap: number;
     readonly symbolNameToIdMapping: ReadonlyMap<string, number>;
     readonly reels: ReadonlyArray<ReadonlyArray<number>>;
+    readonly blurSymbolsDuringSpin: boolean;
 };
 
 export type NetServiceConfig = {
@@ -23,7 +24,6 @@ export type NetServiceConfig = {
 
 export type Config = {
     readonly slotConfig: SlotConfig;
-
     readonly netServiceConfig: NetServiceConfig;
 };
 

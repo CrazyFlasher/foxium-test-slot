@@ -2,11 +2,17 @@ import {BaseView} from "./BaseView";
 import {MovieClip} from "@pixi/animate";
 import {gsap} from "gsap";
 import {AnimateContainer} from "@pixi/animate/lib/animate";
+import {inject} from "inversify";
+import {ProjectTypes} from "../../../common/ProjectTypes";
+import {SlotConfig} from "../../../config/Config";
 
 export class SymbolView extends BaseView
 {
+    @inject(ProjectTypes.SlotConfig)
+    private readonly config!: SlotConfig;
+
     private normal!: MovieClip;
-    private blurred!: MovieClip;
+    private blurred: MovieClip | undefined;
 
     private _id!: number;
 
@@ -20,7 +26,14 @@ export class SymbolView extends BaseView
         this.normal.stop();
         this.blurred.stop();
 
-        this.blur = 0.0;
+        if (!this.config.blurSymbolsDuringSpin)
+        {
+            this.blurred.removeFromParent();
+            this.blurred = undefined;
+        } else
+        {
+            this.blur = 0.0;
+        }
     }
 
     public get normalHeight(): number
@@ -30,13 +43,19 @@ export class SymbolView extends BaseView
 
     public stopBlur(): void
     {
-        gsap.killTweensOf(this);
-        gsap.to(this, {duration: 0.2, blur: 0.0, ease: "power2.out"});
+        if (this.config.blurSymbolsDuringSpin)
+        {
+            gsap.killTweensOf(this);
+            gsap.to(this, {duration: 0.2, blur: 0.0, ease: "power2.out"});
+        }
     }
 
     public startBlur(): void
     {
-        gsap.to(this, {duration: 0.2, blur: 1.0, ease: "power2.in"});
+        if (this.config.blurSymbolsDuringSpin)
+        {
+            gsap.to(this, {duration: 0.2, blur: 1.0, ease: "power2.in"});
+        }
     }
 
     public set id(value: number)
@@ -44,16 +63,22 @@ export class SymbolView extends BaseView
         this._id = value;
 
         this.normal.gotoAndStop(value);
-        this.blurred.gotoAndStop(value);
+        if (this.blurred) this.blurred.gotoAndStop(value);
     }
 
     public set blur(value: number)
     {
-        this.normal.alpha = 1 - value;
-        this.blurred.alpha = value;
+        if (this.config.blurSymbolsDuringSpin)
+        {
+            this.normal.alpha = 1 - value;
+            this.normal.visible = value < 1;
 
-        this.normal.visible = value < 1;
-        this.blurred.visible = value > 0;
+            if (this.blurred)
+            {
+                this.blurred.alpha = value;
+                this.blurred.visible = value > 0;
+            }
+        }
     }
 
 }

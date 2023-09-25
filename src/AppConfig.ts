@@ -7,7 +7,7 @@ const appConfig: Config = {
     },
 
     slotConfig: {
-        currency: "USD",
+        currency: "EUR",
         timings: {
             startSpinAccelerationDuration: 0.4,
             spinIterationDuration: 0.1,
@@ -16,6 +16,7 @@ const appConfig: Config = {
             startEachReelInterval: 0.25,
             stopReelDuration: 0.2,
         },
+        blurSymbolsDuringSpin: true,
         visibleSymbolsOnReel: 3,
         symbolsVerticalGap: 50,
         symbolNameToIdMapping: new Map<string, number>([

@@ -45,6 +45,9 @@ If current combination from [results.json]() is missing on reel - client will fa
 
 ![image](https://github.com/CrazyFlasher/foxium-test-slot/assets/1607138/8702bba9-eb28-49a3-8ddd-a93604a9fe22)
 
+When received position is set to the reel, reel will spin to this position and stop. Visually it looks real to user.
+Reels stop one after another and from left to right.
+
 ### Localization
 Texts are loaded from [texts.csv](https://github.com/CrazyFlasher/foxium-test-slot/blob/main/assets/template/texts.csv).
 Language can be forced by passing query param `?lang=en` (ru or est).

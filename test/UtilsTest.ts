@@ -12,7 +12,8 @@ describe('UtilsTest', function (this: Suite)
     {
         const json = {
             "slotConfig": {
-                "currency": "EUR",
+                "currency": "USD",
+                "blurSymbolsDuringSpin": false,
                 "timings": {
                     "spinAnticipationDuration": 3.0
                 }
@@ -23,12 +24,14 @@ describe('UtilsTest', function (this: Suite)
 
         expect(config.slotConfig.timings.spinAnticipationDuration).equals(2.0);
         expect(config.slotConfig.timings.stopReelDuration).equals(0.2);
-        expect(config.slotConfig.currency).equals("USD");
+        expect(config.slotConfig.currency).equals("EUR");
+        expect(config.slotConfig.blurSymbolsDuringSpin).equals(true);
 
         map(json, config);
 
         expect(config.slotConfig.timings.spinAnticipationDuration).equals(3.0);
         expect(config.slotConfig.timings.stopReelDuration).equals(0.2);
-        expect(config.slotConfig.currency).equals("EUR");
+        expect(config.slotConfig.currency).equals("USD");
+        expect(config.slotConfig.blurSymbolsDuringSpin).equals(false);
     });
 });

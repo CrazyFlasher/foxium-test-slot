@@ -8,7 +8,7 @@ import {SlotConfig} from "../../../config/Config";
 import {inject} from "inversify";
 import {ProjectTypes} from "../../../common/ProjectTypes";
 
-export class ReelViewMessageType extends MessageType
+export class ReelViewMessageType extends MessageType<ReelView>
 {
     public static readonly STOPPED: ReelViewMessageType = new ReelViewMessageType();
 }
@@ -26,14 +26,19 @@ export class ReelView extends BaseView
 
     private _reelIndex!: number;
     private readonly symbolViewList: SymbolView[] = [];
-    private _isSpinning!: boolean;
     private originY!: number;
     private symbolHeight!: number;
     private _position!: number;
+    private symbolsUpdatesLeft!: number;
 
     public set reelIndex(value: number)
     {
         this._reelIndex = value;
+    }
+
+    public get reelIndex(): number
+    {
+        return this._reelIndex;
     }
 
     public override set assets(value: MovieClip | AnimateContainer)
@@ -72,9 +77,8 @@ export class ReelView extends BaseView
 
     public startSpin(delay?: number): void
     {
-        this._isSpinning = true;
-
         this.originY = this._assets.y;
+        this.symbolsUpdatesLeft = -1;
 
         if (delay)
         {
@@ -107,11 +111,27 @@ export class ReelView extends BaseView
     private continueSpin(): void
     {
         gsap.to(this._assets, {
-            duration: this.config.timings.spinIterationDuration, y: this.originY + this.symbolHeight, ease: "none", onComplete: () =>
+            duration: this.config.timings.spinIterationDuration,
+            y: this.originY + this.symbolHeight,
+            ease: "none",
+            onComplete: () =>
             {
                 this._assets.y = this.originY;
                 this.setPosition(this._position - 1, false);
-                this.continueSpin();
+
+                if (this.symbolsUpdatesLeft == 0)
+                {
+                    this.stop();
+                }
+                else
+                {
+                    if (this.symbolsUpdatesLeft > 0)
+                    {
+                        this.symbolsUpdatesLeft--;
+                    }
+
+                    this.continueSpin();
+                }
             }
         });
     }
@@ -120,17 +140,23 @@ export class ReelView extends BaseView
     {
         if (stop)
         {
-            this._isSpinning = false;
+            if (this._position == value)
+            {
+                this.stop();
+            }
+            else
+            {
+                if (this._position > value)
+                {
+                    this.symbolsUpdatesLeft = this._position - value - 1;
+                }
+                else
+                {
+                    this.symbolsUpdatesLeft = this._position + (this.config.reels[this._reelIndex].length - value - 1);
+                }
+            }
 
-            this.symbolViewList.forEach(symView => symView.stopBlur());
-
-            gsap.killTweensOf(this._assets);
-
-            this._assets.y = this.originY + this.symbolHeight / 2;
-
-            gsap.to(this._assets, {duration: this.config.timings.stopReelDuration, y: this.originY, ease: "power2.in"});
-
-            this.dispatchMessage(ReelViewMessageType.STOPPED);
+            return;
         }
 
         const symbolIdList = this.config.reels[this._reelIndex];
@@ -155,4 +181,30 @@ export class ReelView extends BaseView
         this.symbolViewList[this.config.visibleSymbolsOnReel + 1].id = symbolIdList[prev];
     }
 
+    private stop(): void
+    {
+        this.symbolViewList.forEach(symView => symView.stopBlur());
+
+        gsap.killTweensOf(this._assets);
+
+        this._assets.y = this.originY;
+
+        gsap.to(this._assets, {
+            duration: this.config.timings.stopReelDuration / 2,
+            y: this.originY + this.symbolHeight / 2,
+            ease: "power2.out",
+            onComplete: () =>
+            {
+                gsap.to(this._assets, {
+                    duration: this.config.timings.stopReelDuration / 2,
+                    y: this.originY,
+                    ease: "power2.inOut",
+                    onComplete: () =>
+                    {
+                        this.dispatchMessage(ReelViewMessageType.STOPPED, this);
+                    }
+                })
+            }
+        });
+    }
 }

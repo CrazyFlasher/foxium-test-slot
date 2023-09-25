@@ -5,7 +5,7 @@ import {AnimateContainer} from "@pixi/animate/lib/animate";
 import {ButtonUI} from "../ui/ButtonUI";
 import {gsap} from "gsap";
 import {WinView} from "./WinView";
-import {IFactoryImmutable, MessageType} from "domwires";
+import {IFactoryImmutable, IMessage, MessageType} from "domwires";
 import {SlotConfig} from "../../../config/Config";
 import {ITextsModelImmutable} from "../../../models/ITextsModel";
 import {inject} from "inversify";
@@ -53,21 +53,27 @@ export class SlotView extends BaseView
 
             this.reelViewList.push(reelView);
 
-            if (i == this.config.reels.length - 1)
-            {
-                reelView.addMessageListener(ReelViewMessageType.STOPPED, this.reelViewStopped.bind(this));
-            }
+            // if (i == this.config.reels.length - 1)
+            // {
+                reelView.addMessageListener<ReelView>(ReelViewMessageType.STOPPED, this.reelViewStopped.bind(this));
+            // }
         }
 
         this.winView = this.viewFactory.instantiateValueUnmapped<WinView>(WinView);
         this.winView.assets = this.getMovieClip("winContainer");
     }
 
-    private reelViewStopped(): void
+    private reelViewStopped(m?: IMessage, data?: ReelView): void
     {
-        this.winView.value = this.winAmount;
+        if (data && data.reelIndex < 2)
+        {
+            this.stopReel(data.reelIndex + 1);
+        } else
+        {
+            this.winView.value = this.winAmount;
 
-        this.spinButton.button.enabled = true;
+            this.spinButton.button.enabled = true;
+        }
     }
 
     private startSpin(): void
@@ -84,7 +90,7 @@ export class SlotView extends BaseView
         {
             this.spinTimeComplete = true;
 
-            if (this.gotResult) this.stopReels();
+            if (this.gotResult) this.stopReel();
         });
 
         this.dispatchMessage(SlotViewMessageType.SPIN_CLICKED);
@@ -97,16 +103,15 @@ export class SlotView extends BaseView
         this.stopPositions = stopPositions;
         this.winAmount = winAmount;
 
-        if (this.spinTimeComplete) this.stopReels();
+        if (this.spinTimeComplete) this.stopReel();
     }
 
-    private stopReels(): void
+    private stopReel(index = 0): void
     {
-        this.reelViewList.forEach((reelView, index) =>
-        {
-            gsap.delayedCall(index * this.config.timings.stopEachReelInterval,
-                () => reelView.setPosition(this.stopPositions[index], true));
-        });
+        const reelView = this.reelViewList[index];
+
+        gsap.delayedCall(this.config.timings.stopEachReelInterval,
+            () => reelView.setPosition(this.stopPositions[index], true));
     }
 
     public orientationChanged(isHorizontal: boolean): void
