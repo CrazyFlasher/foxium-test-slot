@@ -3,7 +3,7 @@
 
 Project is created with [TypeScript](https://www.typescriptlang.org/) using main libraries:
 
-* [DomWires](https://github.com/CrazyFlasher/domwires-ts) - dependency injection framework created my CrazyFlasher (me).
+* [DomWires](https://github.com/CrazyFlasher/domwires-ts) - dependency injection framework.
 * [PixiJS](https://pixijs.com) - framework for visuals.
 * [ESBuild](https://esbuild.github.io/) - bundler for browser environment.
 * [Mocha](https://mochajs.org/) - test framework.
