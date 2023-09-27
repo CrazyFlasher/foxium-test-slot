@@ -35,7 +35,7 @@ class TextsModel extends AbstractHierarchyObject implements ITextsModel
         this._localeCodes = [];
         this.localeMaps = new Map();
 
-        const splitter = "\r\n";
+        const splitter = "\n";
 
         const rows: string[] = csv.split(splitter);
         this._localeCodes = this.getLocaleCodes(rows[0]);
